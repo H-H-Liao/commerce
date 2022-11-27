@@ -1,5 +1,6 @@
 <?php
-
+use App\Http\Controllers\Admin\Api\ProductController as AdminProductController;
+use App\Http\Controllers\Client\Api\ProductController as ClientProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+/**
+ * 管理者
+ */
+Route::group(['prefix' => 'admin'],function(){
+    Route::apiResource('product', AdminProductController::class);
+});
+
+/**
+ * 使用者
+ */
+Route::group(['prefix' => 'client'],function(){
+    Route::apiResource('product', ClientProductController::class);
 });
