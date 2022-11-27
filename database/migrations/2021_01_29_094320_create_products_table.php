@@ -16,11 +16,11 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('product_id');
-            $table->boolean('status');//狀態
-            $table->string('title');//產品名稱
-            $table->boolean('show_description');//簡介
+            $table->boolean('status')->default(0);//狀態
+            $table->string('name');//產品名稱
+            $table->boolean('show_description')->default(0);//簡介
             $table->text('description')->nullable();
-            $table->json('spec');
+            $table->json('spec')->nullable();
             $table->integer('position')->unsigned()->default(0);
             $table->timestamps();
         });
