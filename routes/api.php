@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,13 @@ Route::group(['prefix' => 'admin'],function(){
 Route::group(['prefix' => 'client'],function(){
     Route::get('product', [ClientProductController::class, 'index']);
     Route::get('product/{id}', [ClientProductController::class, 'show']);
+
+    Route::post('cart/product/{id}', [CartController::class, 'addProduct']);
+    Route::put('cart/product/{id}', [CartController::class, 'updateProduct']);
+    Route::delete('cart/product/{id}', [CartController::class, 'removeProduct']);
+
+    Route::post('cart/address', [CartController::class, 'address']);
+    Route::post('cart/delivery', [CartController::class, 'delivery']);
+    Route::post('cart/payment', [CartController::class, 'paymnet']);
+    Route::post('cart/checkout', [CartController::class, 'checkout']);
 });
