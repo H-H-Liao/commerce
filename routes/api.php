@@ -30,5 +30,6 @@ Route::group(['prefix' => 'admin'],function(){
  * 使用者
  */
 Route::group(['prefix' => 'client'],function(){
-    Route::apiResource('product', ClientProductController::class);
+    Route::get('product', [ClientProductController::class, 'index']);
+    Route::get('product/{id}', [ClientProductController::class, 'show']);
 });
