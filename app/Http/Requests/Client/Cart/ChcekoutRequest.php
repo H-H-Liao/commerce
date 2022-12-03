@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Api;
+namespace App\Http\Requests\Client\Cart;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductUpdateRequest extends FormRequest
+class ChcekoutRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ProductUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

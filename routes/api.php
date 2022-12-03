@@ -1,6 +1,6 @@
 <?php
-use App\Http\Controllers\Admin\Api\ProductController as AdminProductController;
-use App\Http\Controllers\Client\Api\ProductController as ClientProductController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

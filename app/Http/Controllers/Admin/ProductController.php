@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Api\ProductStoreRequest;
-use App\Http\Requests\Admin\Api\ProductUpdateRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Product\StoreRequest;
+use App\Http\Requests\Admin\Product\UpdateRequest;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -29,11 +28,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductStoreRequest $request)
+    public function store(StoreRequest $request)
     {
         $model = Product::create($request->validated());
 
-        return response($model, 204);
+        return response($model, 201);
     }
 
     /**
@@ -57,7 +56,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductUpdateRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $model = Product::where('product_id', $id)
                         ->firstOrFail();
