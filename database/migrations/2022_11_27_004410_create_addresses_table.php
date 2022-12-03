@@ -15,7 +15,7 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('address_id');
             $table->text('country')->nullable();//國家
             $table->text('code')->nullable();//區域號碼
             $table->text('city')->nullable();//縣市

@@ -8,6 +8,7 @@ use TypiCMS\Modules\Shopproducts\Models\Shopproduct;
 
 class Promotion extends Model
 {
+    protected $primaryKey = 'promotion_id';
     protected $guarded = [];
 
     public function list()

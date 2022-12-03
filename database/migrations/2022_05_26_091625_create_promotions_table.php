@@ -15,7 +15,7 @@ class CreatePromotionsTable extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('promotion_id');
             $table->integer('image_id')->unsigned()->nullable();
             $table->boolean('status');//狀態
             $table->string('title');//名稱

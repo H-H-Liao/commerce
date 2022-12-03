@@ -15,7 +15,7 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('payment_id');
             $table->boolean('status');
             $table->string('title');
             $table->string('type')->nullable();//支付類型

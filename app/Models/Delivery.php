@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Delivery extends Model
 {
+    protected $primaryKey = 'delivery_id';
     protected $guarded = [];
 
     /**

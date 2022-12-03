@@ -15,7 +15,7 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('delivery_id');
             $table->boolean('status');
             $table->string('title'); //送貨方式
             $table->boolean('show_description');//簡介

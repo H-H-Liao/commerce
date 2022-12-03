@@ -16,7 +16,7 @@ class CreateDeliveryStatesTable extends Migration
         //物流狀態
         Schema::create('delivery_states', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('delivery_state_id');
             $table->integer('order_id')->unsigned();//訂單編號
             $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('status');//狀態

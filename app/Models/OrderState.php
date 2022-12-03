@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderState extends Model
 {
+    protected $primaryKey = 'order_state_id';
     protected $guarded = [];
 
     public static $PROCESSING=1;//處理中

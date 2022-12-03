@@ -16,7 +16,7 @@ class CreatePaymentStatesTable extends Migration
         //付款狀態
         Schema::create('payment_states', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('payment_state_id');
             $table->integer('order_id')->unsigned();//訂單編號
             $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('status');//狀態

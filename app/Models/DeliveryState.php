@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DeliveryState extends Model
 {
+    protected $primaryKey = 'delivery_state_id';
     protected $guarded = [];
 
     public static $STOCKING=1;//備貨中

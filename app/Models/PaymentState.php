@@ -8,6 +8,7 @@ use TypiCMS\Modules\Files\Models\File;
 
 class PaymentState extends Model
 {
+    protected $primaryKey = 'payment_state_id';
     protected $guarded = [];
 
     public static $UNPAID=1;//未付款

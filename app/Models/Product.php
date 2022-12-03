@@ -10,6 +10,7 @@ use TypiCMS\Modules\Promotions\Models\Promotion;
 
 class Product extends Model
 {
+    protected $primaryKey = 'product_id';
     protected $guarded = [];
 
     public function getFirstImage(){

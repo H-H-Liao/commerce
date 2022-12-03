@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('order_id');
             $table->bigInteger('serial_number');//序號
             $table->integer('user_id')->unsigned()->nullable();//訂購者id
             $table->foreign('user_id')->references('user_id')->on('users');
