@@ -1,16 +1,17 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin;
 
-use App\Models\Product;
 use Tests\TestCase;
+use App\Models\Product;
 
-class AdminProductControllerTest extends TestCase
+class ProductControllerTest extends TestCase
 {
     public function test_create()
     {
         $model = [
-            'name' => 'test'
+            'name' => 'test',
+            'status' => true
         ];
         $response = $this->post('/api/admin/product', $model);
         $response->assertStatus(201);
@@ -43,8 +44,6 @@ class AdminProductControllerTest extends TestCase
         $response->assertStatus(200);
 
     }
-
-
 
     public function test_index()
     {
