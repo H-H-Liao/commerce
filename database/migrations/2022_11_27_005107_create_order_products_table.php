@@ -15,7 +15,7 @@ class CreateOrderProductsTable extends Migration
     {
         Schema::create('order_products', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('order_product_id');
             $table->integer('order_id')->unsigned();//訂單編號
             $table->foreign('order_id')->references('id')->on('orders');
             $table->string('title');//產品名稱
