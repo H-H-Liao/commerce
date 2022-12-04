@@ -1,11 +1,13 @@
 <?php
 
-namespace TypiCMS\Modules\Deliveries\Models;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Delivery extends Model
 {
+    use HasFactory;
     protected $primaryKey = 'delivery_id';
     protected $guarded = [];
 
