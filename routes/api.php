@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Client\AddressControlelr;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use Illuminate\Http\Request;
@@ -38,9 +39,7 @@ Route::group(['prefix' => 'client', 'middleware' => ['auth:api']],function(){
     Route::post('cart/product/{id}', [CartController::class, 'addProduct']);
     Route::put('cart/product/{id}', [CartController::class, 'updateProduct']);
     Route::delete('cart/product/{id}', [CartController::class, 'removeProduct']);
-
-    Route::post('cart/address', [CartController::class, 'address']);
-    Route::post('cart/delivery', [CartController::class, 'delivery']);
-    Route::post('cart/payment', [CartController::class, 'paymnet']);
     Route::post('cart/checkout', [CartController::class, 'checkout']);
+
+    Route::apiResource('address', AddressControlelr::class);
 });
