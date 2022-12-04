@@ -9,6 +9,7 @@ class ProductControllerTest extends TestCase
 {
     public function test_create()
     {
+        Product::factory()->count(100)->create();
         $model = [
             'name' => 'test',
             'status' => true

@@ -4,6 +4,8 @@ namespace Tests\Feature\Client;
 
 use Tests\TestCase;
 use App\Models\Product;
+use Laravel\Passport\Passport;
+use App\Models\User;
 
 class CartControllerTest extends TestCase
 {
@@ -12,6 +14,8 @@ class CartControllerTest extends TestCase
      */
     public function test_addProductToCart()
     {
+        $user = User::firstOrFail();
+        Passport::actingAs($user, []);
         $model = Product::where('status', true)
                         ->firstOrFail();
         $data = [
@@ -19,7 +23,6 @@ class CartControllerTest extends TestCase
         ];
 
         $response = $this->post('/api/client/cart/product/'.$model->product_id, $data);
-
         $response->assertStatus(201);
     }
 
@@ -28,6 +31,8 @@ class CartControllerTest extends TestCase
      */
     public function test_addNotFoundProductToCart()
     {
+        $user = User::firstOrFail();
+        Passport::actingAs($user, []);
         $model = Product::where('status', false)
                         ->firstOrFail();
         $data = [
@@ -45,6 +50,8 @@ class CartControllerTest extends TestCase
      */
     public function test_updateProductFromCart()
     {
+        $user = User::firstOrFail();
+        Passport::actingAs($user, []);
         $model = Product::where('status', true)
                         ->firstOrFail();
         $data = [
@@ -62,6 +69,8 @@ class CartControllerTest extends TestCase
      */
     public function test_updateNotFoundProductFromCart()
     {
+        $user = User::firstOrFail();
+        Passport::actingAs($user, []);
         $model = Product::where('status', false)
                         ->firstOrFail();
         $data = [
@@ -80,6 +89,8 @@ class CartControllerTest extends TestCase
      */
     public function test_removeProductFromCart()
     {
+        $user = User::firstOrFail();
+        Passport::actingAs($user, []);
         $model = Product::where('status', true)
                         ->firstOrFail();
 
@@ -94,6 +105,8 @@ class CartControllerTest extends TestCase
      */
     public function test_removeNotFoundProductFromCart()
     {
+        $user = User::firstOrFail();
+        Passport::actingAs($user, []);
         $model = Product::where('status', false)
                         ->firstOrFail();
 
@@ -103,42 +116,22 @@ class CartControllerTest extends TestCase
         $response->assertStatus(404);
     }
 
-    /**
-     * 儲存地址
-     */
-    public function test_saveAddress()
-    {
-        $response = $this->post('/api/client/cart/address');
-
-        $response->assertStatus(200);
-    }
-
-    /**
-     * 儲存運送方式
-     */
-    public function test_saveDeliveryMethod()
-    {
-        $response = $this->post('/api/client/cart/delivery');
-
-        $response->assertStatus(200);
-    }
-
-    /**
-     * 儲存付款方式
-     */
-    public function test_savePaymentMethod()
-    {
-        $response = $this->post('/api/client/cart/payment');
-
-        $response->assertStatus(200);
-    }
 
     /**
      * 結帳
      */
     public function test_checkout()
     {
-        $response = $this->post('/api/client/cart/checkout');
+        $user = User::firstOrFail();
+        Passport::actingAs($user, []);
+
+        $data = [
+            'cart_id' => 1,
+            'address_id' => 1,
+            'delivery_id' => 1,
+            'payment_id' => 1,
+        ];
+        $response = $this->post('/api/client/cart/checkout', $data);
 
         $response->assertStatus(200);
     }

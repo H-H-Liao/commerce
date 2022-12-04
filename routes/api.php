@@ -30,10 +30,11 @@ Route::group(['prefix' => 'admin'],function(){
 /**
  * 使用者
  */
-Route::group(['prefix' => 'client'],function(){
+Route::group(['prefix' => 'client', 'middleware' => ['auth:api']],function(){
     Route::get('product', [ClientProductController::class, 'index']);
     Route::get('product/{id}', [ClientProductController::class, 'show']);
 
+    Route::get('cart', [CartController::class, 'index']);
     Route::post('cart/product/{id}', [CartController::class, 'addProduct']);
     Route::put('cart/product/{id}', [CartController::class, 'updateProduct']);
     Route::delete('cart/product/{id}', [CartController::class, 'removeProduct']);

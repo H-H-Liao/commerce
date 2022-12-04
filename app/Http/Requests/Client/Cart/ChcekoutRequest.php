@@ -24,7 +24,10 @@ class ChcekoutRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'cart_id' => 'required|integer',
+            'address_id' => 'required|integer',
+            'delivery_id' => 'required|integer',
+            'payment_id' => 'required|integer',
         ];
     }
 }

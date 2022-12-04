@@ -18,7 +18,7 @@ class CreateDeliveryStatesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('delivery_state_id');
             $table->integer('order_id')->unsigned();//訂單編號
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('order_id')->references('order_id')->on('orders')->onDelete('cascade');
             $table->integer('status');//狀態
             $table->integer('operator')->nullable();//操作者
             $table->integer('operator_id')->nullable();//操作者ID

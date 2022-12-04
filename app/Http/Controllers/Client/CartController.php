@@ -4,16 +4,21 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Cart;
 use App\Http\Requests\Client\Cart\AddProductRequest;
 use App\Http\Requests\Client\Cart\UpdateProductRequest;
 use App\Http\Requests\Client\Cart\ChcekoutRequest;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CartController extends Controller
 {
     public function index()
     {
-        //
+        $user_id = auth('api')->id();
+        $list = Cart::getProduct($user_id);
+
+        return $list;
     }
 
     /**
@@ -22,10 +27,12 @@ class CartController extends Controller
     public function addProduct($id, AddProductRequest $request)
     {
         $amount = $request->amount ?? 1;
-
-        $product = Product::where('status', true)
-                            ->where('product_id', $id)
-                            ->firstOrFail();
+        $user_id = auth('api')->id();
+        try {
+            Cart::addProduct($user_id, $id, $amount);
+        } catch (ModelNotFoundException $ex) {
+            return response('Not Found Product', 404);
+        }
 
         return response('OK', 201);
     }
@@ -56,20 +63,6 @@ class CartController extends Controller
         return response('OK', 200);
     }
 
-    public function address(Request $request)
-    {
-        return response('OK', 200);
-    }
-
-    public function delivery(Request $request)
-    {
-        return response('OK', 200);
-    }
-
-    public function paymnet(Request $request)
-    {
-        return response('OK', 200);
-    }
 
     public function checkout(ChcekoutRequest $request)
     {

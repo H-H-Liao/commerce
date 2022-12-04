@@ -42,4 +42,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function getCart()
+    {
+        $cart = Cart::where('user_id', $this->user_id)
+                    ->first();
+        if (!$this->cart_id) {
+            $cart = new Cart();
+            $cart->user_id = $this->user_id;
+            $cart->save();
+        }
+        return $cart;
+    }
 }
