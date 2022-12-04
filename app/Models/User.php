@@ -48,7 +48,7 @@ class User extends Authenticatable
     {
         $cart = Cart::where('user_id', $this->user_id)
                     ->first();
-        if (!$this->cart_id) {
+        if (!$cart) {
             $cart = new Cart();
             $cart->user_id = $this->user_id;
             $cart->save();
