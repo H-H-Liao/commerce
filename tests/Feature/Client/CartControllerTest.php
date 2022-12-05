@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Client;
 
+use App\Models\Address;
+use App\Models\Delivery;
+use App\Models\Payment;
 use Tests\TestCase;
 use App\Models\Product;
 use Laravel\Passport\Passport;
@@ -125,11 +128,15 @@ class CartControllerTest extends TestCase
         $user = User::firstOrFail();
         Passport::actingAs($user, []);
 
+        $address = Address::firstOrFail();
+        $delivery = Delivery::firstOrFail();
+        $payment = Payment::firstOrFail();
+
         $data = [
-            'cart_id' => 1,
-            'address_id' => 1,
-            'delivery_id' => 1,
-            'payment_id' => 1,
+            'cart_id' => $user->getCart()->cart_id,
+            'address_id' => $address->address_id,
+            'delivery_id' =>  $delivery->delivery_id,
+            'payment_id' => $payment->payment_id,
         ];
         $response = $this->post('/api/client/cart/checkout', $data);
 

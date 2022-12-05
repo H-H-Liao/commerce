@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Delivery;
+namespace App\Http\Requests\Admin\Payment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,12 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'boolean',
             'title' => 'required|string',
-            'show_description' => 'boolean',
-            'description' => 'nullable',
-            'area' => 'required|json',
-            'position' => 'nullable|integer'
         ];
     }
 }

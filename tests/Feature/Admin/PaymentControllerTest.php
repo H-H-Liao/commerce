@@ -13,7 +13,7 @@ class PaymentControllerTest extends TestCase
     {
         Payment::factory()->count(100)->create();
         $model = [
-            'name' => 'test',
+            'title' => 'test',
             'status' => true
         ];
         $response = $this->post('/api/admin/payment', $model);
@@ -24,7 +24,7 @@ class PaymentControllerTest extends TestCase
     {
         $model = Payment::firstOrFail();
         $data = [
-            'name' => 'example'
+            'title' => 'example'
         ];
         $response = $this->put('/api/admin/payment/'.$model->payment_id, $data);
 

@@ -1,5 +1,7 @@
 <?php
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\DeliveryController as AdminDeliveryController;
+use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
 use App\Http\Controllers\Client\AddressControlelr;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
@@ -26,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  */
 Route::group(['prefix' => 'admin'],function(){
     Route::apiResource('product', AdminProductController::class);
+    Route::apiResource('delivery', AdminDeliveryController::class);
+    Route::apiResource('payment', AdminPaymentController::class);
 });
 
 /**

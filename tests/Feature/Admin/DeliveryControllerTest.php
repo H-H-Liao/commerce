@@ -13,8 +13,9 @@ class DeliveryControllerTest extends TestCase
     {
         Delivery::factory()->count(100)->create();
         $model = [
-            'name' => 'test',
-            'status' => true
+            'title' => 'test',
+            'status' => true,
+            'area' => '[]'
         ];
         $response = $this->post('/api/admin/delivery', $model);
         $response->assertStatus(201);
@@ -24,7 +25,8 @@ class DeliveryControllerTest extends TestCase
     {
         $model = Delivery::firstOrFail();
         $data = [
-            'name' => 'example'
+            'title' => 'example',
+            'area' => '[]'
         ];
         $response = $this->put('/api/admin/delivery/'.$model->delivery_id, $data);
 

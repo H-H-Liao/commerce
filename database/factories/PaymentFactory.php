@@ -14,7 +14,7 @@ class PaymentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->name()
         ];
     }
 }

@@ -14,7 +14,10 @@ class DeliveryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'status' => true,
+            'title' => $this->faker->name(),
+            'show_description' => true,
+            'area' => '[]'
         ];
     }
 }
