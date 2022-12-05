@@ -2,7 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Delivery;
+use App\Models\Payment;
+use App\Models\Product;
+use App\Models\ProductIndex;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +19,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(1)->create();
+        Payment::factory(1)->create();
+        Delivery::factory(1)->create();
+        for ($index = 0 ; $index <= 10 ; $index++) {
+            $this->call(ProductSeeder::class);
+        }
+
     }
 }

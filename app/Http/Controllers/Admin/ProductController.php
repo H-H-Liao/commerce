@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\StoreRequest;
 use App\Http\Requests\Admin\Product\UpdateRequest;
 use App\Models\Product;
+use App\Models\ProductIndex;
 
 class ProductController extends Controller
 {
@@ -16,10 +17,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $list = Product::orderBy('position', 'DESC')
-                        ->get();
+        $list = ProductIndex::join('products', 'products.product_id', '=', 'product_indices.product_id')
+                            ->orderBy('position', 'DESC')
+                            ->get();
 
-            return response($list, 200);
+        return response($list, 200);
     }
 
     /**
@@ -30,7 +32,9 @@ class ProductController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $model = Product::create($request->validated());
+
+        $product = Product::create($request->validated());
+        $model = ProductIndex::create(['product_id' => $product->product_id]);
 
         return response($model, 201);
     }
@@ -43,8 +47,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $model = Product::where('product_id', $id)
-                        ->firstOrFail();
+        $model = ProductIndex::where('products.product_id', $id)
+                            ->join('products', 'products.product_id', '=', 'product_indices.product_id')
+                            ->firstOrFail();
 
         return response($model, 200);
     }
@@ -58,10 +63,25 @@ class ProductController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        $model = Product::where('product_id', $id)
-                        ->firstOrFail();
-        $model->update($request->validated());
 
+        $product_index = ProductIndex::where('product_id', $id)
+                                ->firstOrFail();
+
+        $product = Product::where('product_id', $id)
+                                ->firstOrFail();
+        $data = $request->validated();
+        $data['parent_id'] = $product->product_id;
+        $model = $product->replicate()
+                        ->fill($data)
+                        ->save();
+        $model = Product::where('parent_id', $product->product_id)
+                        ->orderBy('created_at', 'DESC')
+                        ->firstOrFail();
+        $product->parent_id = $model->product_id;
+        $product->save();
+
+        $product_index->product_id = $model->product_id;
+        $product_index->save();
         return response($model, 200);
     }
 
@@ -73,7 +93,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $model = Product::where('product_id', $id)
+        $model = ProductIndex::where('product_id', $id)
                         ->firstOrFail();
         $model->delete();
 

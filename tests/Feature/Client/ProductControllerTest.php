@@ -4,6 +4,7 @@ namespace Tests\Feature\Client;
 
 use Tests\TestCase;
 use App\Models\Product;
+use App\Models\ProductIndex;
 use Laravel\Passport\Passport;
 use App\Models\User;
 
@@ -13,7 +14,10 @@ class ProductControllerTest extends TestCase
     {
         $user = User::firstOrFail();
         Passport::actingAs($user, []);
-        $model = Product::where('status', true)->firstOrFail();
+        $model = ProductIndex::join('products', 'products.product_id', '=', 'product_indices.product_id')
+                                ->where('products.status', true)
+                                ->firstOrFail();
+
         $response = $this->get('/api/client/product/'.$model->product_id);
 
         $response->assertStatus(200);
@@ -23,7 +27,9 @@ class ProductControllerTest extends TestCase
     {
         $user = User::firstOrFail();
         Passport::actingAs($user, []);
-        $model = Product::where('status', false)->firstOrFail();
+        $model = ProductIndex::join('products', 'products.product_id', '=', 'product_indices.product_id')
+                                ->where('products.status', false)
+                                ->firstOrFail();
         $response = $this->get('/api/client/product/'.$model->product_id);
 
         $response->assertStatus(404);

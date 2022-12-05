@@ -3,13 +3,12 @@
 namespace Tests\Feature\Admin;
 
 use Tests\TestCase;
-use App\Models\Product;
+use App\Models\ProductIndex;
 
 class ProductControllerTest extends TestCase
 {
     public function test_create()
     {
-        Product::factory()->count(100)->create();
         $model = [
             'name' => 'test',
             'status' => true
@@ -20,7 +19,7 @@ class ProductControllerTest extends TestCase
 
     public function test_edit()
     {
-        $model = Product::firstOrFail();
+        $model = ProductIndex::firstOrFail();
         $data = [
             'name' => 'example'
         ];
@@ -31,7 +30,7 @@ class ProductControllerTest extends TestCase
 
     public function test_show()
     {
-        $model = Product::firstOrFail();
+        $model = ProductIndex::firstOrFail();
         $response = $this->get('/api/admin/product/'.$model->product_id);
 
         $response->assertStatus(200);
@@ -39,7 +38,7 @@ class ProductControllerTest extends TestCase
 
     public function test_delete()
     {
-        $model = Product::firstOrFail();
+        $model = ProductIndex::firstOrFail();
         $response = $this->delete('/api/admin/product/'.$model->product_id);
 
         $response->assertStatus(200);
@@ -48,7 +47,6 @@ class ProductControllerTest extends TestCase
 
     public function test_index()
     {
-
         $response = $this->get('/api/admin/product');
 
         $response->assertStatus(200);
